@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mafia: The Old Country | Sigma Circle Math Club Slot Registration</title>
+  <meta name="description" content="Register for Sigma Circle Math Club's Mafia Night: The Old Country. 3 Game Slots available, max 15 participants per slot.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Light, Spotlight & Fixed Gunman Background -->
+  <div class="spotlight-overlay"></div>
+  <div class="vignette-overlay"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- Interactive 3D Gunman Character Canvas / Overlay -->
+  <div class="gunman-stage" id="gunmanStage">
+    <div class="gunman-frame" id="gunmanFrame">
+      <img src="assets/gunman_up.png" alt="Peaky Blinders Gunman Upwards" class="gunman-img up active" id="gunmanUpImg">
+      <img src="assets/gunman_forward.png" alt="Peaky Blinders Gunman Aiming Forward" class="gunman-img forward" id="gunmanForwardImg">
+      <div class="muzzle-flash" id="muzzleFlash"></div>
+    </div>
+  </div>
+
+  <div class="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+      <div class="club-badge">
+        <span class="sigma-icon-sm">&Sigma;</span>
+        <span class="club-title">Sigma Circle Math Club</span>
+      </div>
+
+      <div class="top-status-indicator">
+        <span class="status-dot"></span>
+        <span id="gunmanStateText">Gun Status: Aiming Up</span>
+      </div>
+
+      <button id="openAdminBtn" class="admin-btn">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>Admin Panel</span>
+      </button>
+    </header>
+
+    <!-- Main Hero Banner Header -->
+    <section class="hero-section">
+      <div class="sigma-hero-logo">&Sigma;</div>
+      <h1 class="main-title">MAFIA: THE OLD COUNTRY</h1>
+      <div class="subtitle-bar">Official Event Slot Registration</div>
+    </section>
+
+    <!-- Event Logistics Information Bar -->
+    <section class="logistics-bar 3d-tilt">
+      <div class="logistic-item">
+        <div class="logistic-icon"><i class="fa-regular fa-calendar"></i></div>
+        <div>
+          <div class="logistic-label">Event Date</div>
+          <div class="logistic-val">JULY 30th</div>
+        </div>
+      </div>
+
+      <div class="logistic-item">
+        <div class="logistic-icon"><i class="fa-regular fa-clock"></i></div>
+        <div>
+          <div class="logistic-label">Event Time</div>
+          <div class="logistic-val">2:00 PM ONWARDS</div>
+        </div>
+      </div>
+
+      <div class="logistic-item">
+        <div class="logistic-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div>
+          <div class="logistic-label">Location</div>
+          <div class="logistic-val">To Be Decided</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mafia Game Character Roles Section (Peaky Blinders Theme) -->
+    <section class="characters-showcase">
+      <div class="characters-heading">
+        <h2 class="section-title">Official Game Roles & Secret Identities</h2>
+        <p class="section-desc">By Order of the Sigma Circle. Master your secret role or face elimination.</p>
+      </div>
+
+      <div class="characters-grid">
+        
+        <!-- 1. The Mafia -->
+        <div class="character-card mafia-role-card 3d-card" data-role="mafia">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap mafia-icon">
+            <i class="fa-solid fa-user-ninja"></i>
+          </div>
+          <h3 class="character-name">The Mafia</h3>
+          <p class="character-subtitle">Peaky Mob Leader</p>
+          <p class="character-desc">Rules the night in pinstripes. Coordinates secret eliminations and deceives the town during daytime trials.</p>
+          <span class="character-alignment mafia-tag"><i class="fa-solid fa-skull"></i> MAFIA FACTION</span>
+        </div>
+
+        <!-- 2. The Civilians -->
+        <div class="character-card civilian-role-card 3d-card" data-role="civilian">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap civilian-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <h3 class="character-name">The Civilians</h3>
+          <p class="character-subtitle">Townspeople</p>
+          <p class="character-desc">Unarmed citizens. Must analyze behavior, spot lies, and cast majority votes to execute suspects.</p>
+          <span class="character-alignment town-tag"><i class="fa-solid fa-shield-halved"></i> TOWN FACTION</span>
+        </div>
+
+        <!-- 3. The Doctor -->
+        <div class="character-card doctor-role-card 3d-card" data-role="doctor">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap doctor-icon">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h3 class="character-name">The Doctor</h3>
+          <p class="character-subtitle">Field Medic</p>
+          <p class="character-desc">Protects one player from murder each night. Can save themselves in alternative nights.</p>
+          <span class="character-alignment town-tag"><i class="fa-solid fa-shield-halved"></i> TOWN FACTION</span>
+        </div>
+
+        <!-- 4. The Traitor -->
+        <div class="character-card traitor-role-card 3d-card" data-role="traitor">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap traitor-icon">
+            <i class="fa-solid fa-mask"></i>
+          </div>
+          <h3 class="character-name">The Traitor</h3>
+          <p class="character-subtitle">Fake Mafia Pretender</p>
+          <p class="character-desc">Acts suspicious to fake being Mafia! <strong>Special Win Condition:</strong> If eliminated by town vote, the Traitor WINS!</p>
+          
+        </div>
+
+        <!-- 5. The Bad Informer -->
+        <div class="character-card informer-role-card 3d-card" data-role="informer">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap informer-icon">
+            <i class="fa-solid fa-user-secret"></i>
+          </div>
+          <h3 class="character-name">Bad Informer</h3>
+          <p class="character-subtitle">Double Agent</p>
+          <p class="character-desc">Passes corrupted intel and false clues to mislead Civilians, creating chaos during town deliberations.</p>
+          <span class="character-alignment chaos-tag"><i class="fa-solid fa-eye-slash"></i> DECEIVER</span>
+        </div>
+
+        <!-- 6. The Detective -->
+        <div class="character-card detective-role-card 3d-card" data-role="detective">
+          <div class="card-glow"></div>
+          <div class="character-icon-wrap detective-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <h3 class="character-name">The Detective</h3>
+          <p class="character-subtitle">Night Investigator</p>
+          <p class="character-desc">Can make one guess each night on who the Mafia is, adding pressure to the hidden alliance and turning every clue into a strategic gamble.</p>
+          <span class="character-alignment town-tag"><i class="fa-solid fa-shield-halved"></i> TOWN FACTION</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Poster Frame Visual Showcase -->
+    <section class="poster-showcase">
+      <div class="poster-frame 3d-tilt">
+        <img src="assets/mafia_poster.png" alt="Mafia: The Old Country Promotional Poster" class="poster-img" id="posterVisual">
+        <div class="poster-badge">
+          <span class="poster-badge-dot"></span>
+          <span>Live Slot System Active</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Interactive Registration Section -->
+    <main class="registration-grid">
+      
+      <div class="section-header">
+        <h2 class="section-title">Reserve Your Gameplay Seat</h2>
+        <p class="section-desc">Select an open game slot below. Maximum 15 participants per slot. Slots automatically close when full.</p>
+      </div>
+
+      <!-- Registration Form -->
+      <form id="registrationForm" class="registration-form-card 3d-tilt" novalidate>
+        
+        <!-- Slot Selector Cards -->
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-gamepad"></i> Select Available Slot</label>
+          
+          <div class="slots-container" id="slotsContainer">
+            
+            <!-- Slot 1 -->
+            <div class="slot-card 3d-card" data-slot="1" tabindex="0">
+              <div class="status-full-stamp">SLOT FULL</div>
+              <div class="slot-header">
+                <span class="slot-number">SLOT 1</span>
+                <div class="slot-radio-indicator"></div>
+              </div>
+              <div class="slot-time">
+                <i class="fa-regular fa-clock"></i>
+                <span>2:00 PM – 3:00 PM</span>
+              </div>
+              <div class="seat-counter-wrap">
+                <span class="seat-counter">Remaining Capacity</span>
+                <span class="seat-count-badge available" id="slotBadge1">
+                  <i class="fa-solid fa-user-check"></i> <span id="slotCount1">15</span> / 15
+                </span>
+              </div>
+            </div>
+
+            <!-- Slot 2 -->
+            <div class="slot-card 3d-card" data-slot="2" tabindex="0">
+              <div class="status-full-stamp">SLOT FULL</div>
+              <div class="slot-header">
+                <span class="slot-number">SLOT 2</span>
+                <div class="slot-radio-indicator"></div>
+              </div>
+              <div class="slot-time">
+                <i class="fa-regular fa-clock"></i>
+                <span>3:00 PM – 4:00 PM</span>
+              </div>
+              <div class="seat-counter-wrap">
+                <span class="seat-counter">Remaining Capacity</span>
+                <span class="seat-count-badge available" id="slotBadge2">
+                  <i class="fa-solid fa-user-check"></i> <span id="slotCount2">15</span> / 15
+                </span>
+              </div>
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="slot-card 3d-card" data-slot="3" tabindex="0">
+              <div class="status-full-stamp">SLOT FULL</div>
+              <div class="slot-header">
+                <span class="slot-number">SLOT 3</span>
+                <div class="slot-radio-indicator"></div>
+              </div>
+              <div class="slot-time">
+                <i class="fa-regular fa-clock"></i>
+                <span>4:00 PM – 5:00 PM</span>
+              </div>
+              <div class="seat-counter-wrap">
+                <span class="seat-counter">Remaining Capacity</span>
+                <span class="seat-count-badge available" id="slotBadge3">
+                  <i class="fa-solid fa-user-check"></i> <span id="slotCount3">15</span> / 15
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Student Inputs -->
+        <div class="form-group">
+          <label for="studentName" class="form-label"><i class="fa-solid fa-user"></i> Full Student Name</label>
+          <input type="text" id="studentName" class="form-input" placeholder="e.g. Aman" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studentPhone" class="form-label"><i class="fa-solid fa-phone"></i> Mobile Phone Number</label>
+          <input type="tel" id="studentPhone" class="form-input" placeholder="e.g. +1 555 019 2831" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studentYear" class="form-label"><i class="fa-solid fa-graduation-cap"></i> Year</label>
+          <input type="text" id="studentYear" class="form-input" placeholder="e.g. 2nd Year" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studentSpecifications" class="form-label"><i class="fa-solid fa-list-ul"></i> Department / Specialization</label>
+          <textarea id="studentSpecifications" class="form-input form-textarea" rows="4" placeholder="e.g. Computer Engineering, AI/DS, MBA Tech..."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="submit-btn" disabled>
+          <i class="fa-solid fa-crosshairs"></i>
+          <span>AIM & CLAIM YOUR SLOT</span>
+        </button>
+
+      </form>
+    </main>
+
+  </div>
+
+  <!-- Ticket Confirmation Modal -->
+  <div class="modal-overlay" id="ticketModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeTicketBtn">&times;</button>
+      
+      <div class="ticket-pass" id="ticketPassContent">
+        <div class="pass-header">
+          <div class="pass-sigma-badge">&Sigma;</div>
+          <div class="pass-title-group">
+            <h3>MAFIA: THE OLD COUNTRY</h3>
+            <p>Sigma Circle Math Club • Official Pass</p>
+          </div>
+        </div>
+
+        <div class="pass-details-grid">
+          <div>
+            <div class="pass-field-label">Participant Name</div>
+            <div class="pass-field-value" id="passName">-</div>
+          </div>
+          <div>
+            <div class="pass-field-label">Mobile Number</div>
+            <div class="pass-field-value" id="passPhone">-</div>
+          </div>
+          <div>
+            <div class="pass-field-label">Year</div>
+            <div class="pass-field-value" id="passYear">-</div>
+          </div>
+          <div>
+            <div class="pass-field-label">Assigned Game Slot</div>
+            <div class="pass-field-value highlight" id="passSlot">-</div>
+          </div>
+          <div>
+            <div class="pass-field-label">Department / Specialization</div>
+            <div class="pass-field-value" id="passSpecifications"></div>
+          </div>
+          <div>
+            <div class="pass-field-label">Event Location</div>
+            <div class="pass-field-value">Room 301 (Math Room)</div>
+          </div>
+        </div>
+
+        <div class="pass-qr-stub">
+          <div class="qr-code-placeholder">
+            <div class="qr-pixel"></div><div class="qr-pixel w"></div><div class="qr-pixel"></div><div class="qr-pixel"></div>
+            <div class="qr-pixel w"></div><div class="qr-pixel"></div><div class="qr-pixel w"></div><div class="qr-pixel"></div>
+            <div class="qr-pixel"></div><div class="qr-pixel w"></div><div class="qr-pixel"></div><div class="qr-pixel w"></div>
+            <div class="qr-pixel"></div><div class="qr-pixel"></div><div class="qr-pixel w"></div><div class="qr-pixel"></div>
+          </div>
+          <div class="pass-id-code" id="passIdCode">PASS #SIGMA-0000</div>
+        </div>
+      </div>
+
+      <div class="ticket-actions">
+        <button class="btn-secondary" id="printTicketBtn">
+          <i class="fa-solid fa-print"></i> Print Ticket
+        </button>
+        <button class="submit-btn" id="doneTicketBtn" style="margin-top:0;">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-card admin-modal-card">
+      <button class="modal-close-btn" id="closeAdminLoginBtn">&times;</button>
+      <div class="admin-header">
+        <h2 class="section-title" style="font-size:1.3rem; margin:0;"><i class="fa-solid fa-lock"></i> Admin Login</h2>
+      </div>
+      <div class="admin-body">
+        <form id="adminLoginForm" class="login-form">
+          <div class="form-group">
+            <label for="adminUsernameInput" class="form-label"><i class="fa-solid fa-user"></i> Username</label>
+            <input type="text" id="adminUsernameInput" class="form-input" placeholder="Enter username" required>
+          </div>
+          <div class="form-group">
+            <label for="adminPasswordInput" class="form-label"><i class="fa-solid fa-key"></i> Password</label>
+            <input type="password" id="adminPasswordInput" class="form-input" placeholder="Enter password" required>
+          </div>
+          <p id="adminLoginError" class="login-error"></p>
+          <button type="submit" class="submit-btn" style="margin-top:0;">Access Admin Panel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Panel Modal -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-card admin-modal-card">
+      <div class="admin-header">
+        <h2 class="section-title" style="font-size:1.3rem; margin:0;"><i class="fa-solid fa-database"></i> Registration Database</h2>
+        <div class="admin-header-actions">
+          <span id="adminAuthStatus" class="admin-status-badge">Signed in as Aman</span>
+          <button class="modal-close-btn" id="closeAdminBtn">&times;</button>
+        </div>
+      </div>
+
+      <div class="admin-body">
+        <div class="admin-stats-row">
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="adminTotalCount">0</div>
+            <div class="admin-stat-lbl">Total Registered</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="adminOpenSeats">45</div>
+            <div class="admin-stat-lbl">Seats Remaining</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="adminFullSlotsCount">0</div>
+            <div class="admin-stat-lbl">Slots Closed</div>
+          </div>
+        </div>
+
+        <div class="admin-toolbar">
+          <input type="text" id="adminSearchInput" class="form-input search-input" placeholder="Search by name, phone, year, or specialization...">
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button class="btn-secondary" id="fillSampleDataBtn">
+              <i class="fa-solid fa-bolt"></i> Fill Test Entry
+            </button>
+            <button class="btn-secondary" id="exportCsvBtn">
+              <i class="fa-solid fa-file-csv"></i> Export CSV
+            </button>
+            <button class="btn-secondary" id="resetDbBtn" style="border-color: var(--accent-crimson); color: var(--accent-crimson-bright);">
+              <i class="fa-solid fa-trash"></i> Reset DB
+            </button>
+            <button class="btn-secondary" id="adminLogoutBtn" style="border-color: var(--accent-crimson); color: var(--accent-crimson-bright);">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+          </div>
+        </div>
+
+        <div class="slot-summary-section">
+          <h3 class="slot-summary-title">Slot-wise Registration Details</h3>
+          <div id="slotSummaryContainer" class="slot-summary-grid"></div>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Year</th>
+              <th>Department / Specialization</th>
+              <th>Slot</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <tr>
+              <td colspan="7" style="text-align:center; color: var(--text-dim); padding: 2rem;">No registered participants yet.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

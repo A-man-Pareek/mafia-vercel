@@ -1,0 +1,4 @@
+﻿CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, phone TEXT, slot INTEGER);
+DELETE FROM users;
+INSERT INTO users (id, name, phone, slot) VALUES (1785156800622, 'Aditya Yadav', '9930518810', 1);
+
