@@ -420,18 +420,27 @@ document.addEventListener('DOMContentLoaded', () => {
   window.deleteUser = async function(id) {
     if (!confirm('Remove this participant?')) return;
     const normalizedId = Number(id);
-    try {
-      await fetch(`${API_BASE}/users/${encodeURIComponent(normalizedId)}`, { method: 'DELETE' });
-    } catch (e) {
-      // fall back to local update if the API is unavailable
+    if (!Number.isFinite(normalizedId)) {
+      showToast('Invalid participant ID.', 'error');
+      return;
     }
-    registrations = registrations.filter(r => Number(r.id) !== normalizedId);
-    localStorage.setItem('mafia_users_db', JSON.stringify(registrations));
-    await fetchRegistrations();
-    updateUI();
-    renderAdminTable();
-    renderSlotSummary();
-    showToast('Participant deleted.', 'info');
+
+    try {
+      const res = await fetch(`${API_BASE}/users?id=${encodeURIComponent(normalizedId)}`, { method: 'DELETE' });
+      if (!res.ok) {
+        throw new Error('Delete request failed');
+      }
+
+      registrations = registrations.filter(r => Number(r.id) !== normalizedId);
+      localStorage.setItem('mafia_users_db', JSON.stringify(registrations));
+      await fetchRegistrations();
+      updateUI();
+      renderAdminTable();
+      renderSlotSummary();
+      showToast('Participant deleted.', 'info');
+    } catch (e) {
+      showToast('Unable to delete participant from the database.', 'error');
+    }
   };
 
   async function handleFillSampleData() {

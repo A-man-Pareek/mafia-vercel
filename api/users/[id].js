@@ -11,12 +11,18 @@ module.exports = async function handler(req, res) {
 
   try {
     const supabase = getSupabaseClient();
-    const id = req.query?.id;
+    const rawId = req.query?.id ?? req.query?.[0] ?? req.body?.id;
+    const numericId = Number(rawId);
+
+    if (!Number.isFinite(numericId)) {
+      sendJson(res, 400, { error: 'INVALID_ID' });
+      return;
+    }
 
     const { error } = await supabase
       .from('users')
       .delete()
-      .eq('id', Number(id));
+      .eq('id', numericId);
 
     if (error) throw error;
 
