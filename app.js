@@ -207,12 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
     slotCards.forEach(c => c.classList.remove('selected'));
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (navigator.vibrate) {
-      navigator.vibrate([120, 60, 120]);
+    try {
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+      }
+    } catch (err) {
+      // vibration not supported
     }
     showModal(successModal);
     showToast('Registration Successful! Ticket generated.', 'success');
     showToast('Your registration was saved successfully.', 'success');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('mafia:success'));
+    }
+    window.alert('Registration successful!');
   }
 
   function showTicketPass(user, slotId) {

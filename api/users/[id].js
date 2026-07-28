@@ -11,23 +11,25 @@ module.exports = async function handler(req, res) {
 
   try {
     const supabase = getSupabaseClient();
-    const rawId = req.query?.id ?? req.query?.[0] ?? req.body?.id;
+    const pathId = req.query?.id || req.query?.[0] || req.params?.id || req.body?.id;
+    const rawId = req.query?.id ?? req.query?.[0] ?? req.body?.id ?? pathId;
     const numericId = Number(rawId);
 
     if (!Number.isFinite(numericId)) {
-      sendJson(res, 400, { error: 'INVALID_ID' });
+      sendJson(res, 400, { success: false, error: 'INVALID_ID' });
       return;
     }
 
-    const { error } = await supabase
+    const { error, count } = await supabase
       .from('users')
       .delete()
-      .eq('id', numericId);
+      .eq('id', numericId)
+      .select('*', { count: 'exact', head: true });
 
     if (error) throw error;
 
-    sendJson(res, 200, { success: true });
+    sendJson(res, 200, { success: true, deletedCount: count ?? 0 });
   } catch (error) {
-    sendJson(res, 500, { error: error.message });
+    sendJson(res, 500, { success: false, error: error.message });
   }
 };
