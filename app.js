@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeTicketBtn = document.getElementById('closeTicketBtn');
   const doneTicketBtn = document.getElementById('doneTicketBtn');
   const printTicketBtn = document.getElementById('printTicketBtn');
+  const successModal = document.getElementById('successModal');
+  const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+  const doneSuccessBtn = document.getElementById('doneSuccessBtn');
 
   const adminModal = document.getElementById('adminModal');
   const adminLoginModal = document.getElementById('adminLoginModal');
@@ -90,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     closeTicketBtn.addEventListener('click', () => hideModal(ticketModal));
     doneTicketBtn.addEventListener('click', () => hideModal(ticketModal));
     printTicketBtn.addEventListener('click', () => window.print());
+    closeSuccessBtn.addEventListener('click', () => hideModal(successModal));
+    doneSuccessBtn.addEventListener('click', () => hideModal(successModal));
 
     openAdminBtn.addEventListener('click', handleOpenAdmin);
     closeAdminBtn.addEventListener('click', () => hideModal(adminModal));
@@ -201,8 +206,13 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedSlot = null;
     slotCards.forEach(c => c.classList.remove('selected'));
 
-    showTicketPass(newUser, registeredSlotId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (navigator.vibrate) {
+      navigator.vibrate([120, 60, 120]);
+    }
+    showModal(successModal);
     showToast('Registration Successful! Ticket generated.', 'success');
+    showToast('Your registration was saved successfully.', 'success');
   }
 
   function showTicketPass(user, slotId) {
@@ -409,8 +419,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.deleteUser = async function(id) {
     if (!confirm('Remove this participant?')) return;
-    try { await fetch(`${API_BASE}/users/${id}`, { method: 'DELETE' }); } catch (e) {}
-    registrations = registrations.filter(r => r.id !== id);
+    const normalizedId = Number(id);
+    try {
+      await fetch(`${API_BASE}/users/${encodeURIComponent(normalizedId)}`, { method: 'DELETE' });
+    } catch (e) {
+      // fall back to local update if the API is unavailable
+    }
+    registrations = registrations.filter(r => Number(r.id) !== normalizedId);
     localStorage.setItem('mafia_users_db', JSON.stringify(registrations));
     await fetchRegistrations();
     updateUI();
