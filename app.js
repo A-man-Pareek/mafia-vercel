@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/users?id=${encodeURIComponent(normalizedId)}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(normalizedId)}`, { method: 'DELETE' });
       if (!res.ok) {
         throw new Error('Delete request failed');
       }
